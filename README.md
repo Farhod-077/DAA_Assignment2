@@ -105,6 +105,6 @@ counter overhead.
 
 ## Release
 
-Repository: ADD_YOUR_GITHUB_LINK
+Repository: https://github.com/Farhod-077/DAA_Assignment2
 Release branch: main
 Release tag: v1.0
