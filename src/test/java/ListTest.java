@@ -201,4 +201,65 @@ public class ListTest {
         assertEquals(10, metrics.getMoves());
         assertEquals(0, metrics.getComparisons());
     }
+    @Test
+    void linkedListCounters() {
+        MyLinkedList list = new MyLinkedList();
+
+        list.add(10);
+        list.add(20);
+        list.add(30);
+
+        Metrics metrics = list.getMetrics();
+
+
+        metrics.reset();
+        assertEquals(30, list.get(2));
+
+        assertEquals(2, metrics.getSteps());
+        assertEquals(0, metrics.getMoves());
+        assertEquals(0, metrics.getComparisons());
+
+
+        metrics.reset();
+        assertTrue(list.contains(20));
+
+        assertEquals(1, metrics.getSteps());
+        assertEquals(0, metrics.getMoves());
+        assertEquals(2, metrics.getComparisons());
+
+
+        metrics.reset();
+        list.add(0, 5);
+
+        assertEquals(0, metrics.getSteps());
+        assertEquals(2, metrics.getMoves());
+        assertEquals(0, metrics.getComparisons());
+
+
+        metrics.reset();
+        assertEquals(5, list.remove(0));
+
+        assertEquals(1, metrics.getSteps());
+        assertEquals(1, metrics.getMoves());
+        assertEquals(0, metrics.getComparisons());
+
+
+        metrics.reset();
+        assertEquals(30, list.remove(2));
+
+        assertEquals(3, metrics.getSteps());
+        assertEquals(2, metrics.getMoves());
+        assertEquals(0, metrics.getComparisons());
+
+
+        metrics.reset();
+        list.add(40);
+
+        assertEquals(0, metrics.getSteps());
+        assertEquals(2, metrics.getMoves());
+        assertEquals(0, metrics.getComparisons());
+
+        assertEquals(3, list.size());
+        assertEquals(40, list.get(2));
+    }
 }
