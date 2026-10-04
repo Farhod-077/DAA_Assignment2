@@ -122,4 +122,53 @@ public class MinHeapTest {
 
         assertEquals(0, heap.size());
     }
+    @Test
+    void heapCounters() {
+        MinHeap heap = new MinHeap();
+        Metrics metrics = heap.getMetrics();
+
+        heap.insert(10);
+
+
+        metrics.reset();
+        heap.insert(5);
+
+        assertEquals(4, metrics.getSteps());
+        assertEquals(2, metrics.getMoves());
+        assertEquals(1, metrics.getComparisons());
+
+
+        metrics.reset();
+        heap.insert(20);
+
+        assertEquals(2, metrics.getSteps());
+        assertEquals(0, metrics.getMoves());
+        assertEquals(1, metrics.getComparisons());
+
+
+        metrics.reset();
+        assertEquals(5, heap.peekMin());
+
+        assertEquals(1, metrics.getSteps());
+        assertEquals(0, metrics.getMoves());
+        assertEquals(0, metrics.getComparisons());
+
+
+        metrics.reset();
+        assertEquals(5, heap.extractMin());
+
+        assertEquals(6, metrics.getSteps());
+        assertEquals(3, metrics.getMoves());
+        assertEquals(1, metrics.getComparisons());
+
+
+        assertTrue(heap.isValidHeap());
+
+        assertEquals(6, metrics.getSteps());
+        assertEquals(3, metrics.getMoves());
+        assertEquals(1, metrics.getComparisons());
+
+        assertEquals(2, heap.size());
+        assertEquals(10, heap.peekMin());
+    }
 }
