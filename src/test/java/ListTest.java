@@ -146,4 +146,59 @@ public class ListTest {
         assertEquals(-2, array.get(500));
         assertEquals(1002, array.size());
     }
+    @Test
+    void dynamicArrayCounters() {
+        DynamicArray array = new DynamicArray();
+
+        array.add(10);
+        array.add(20);
+        array.add(30);
+
+        Metrics metrics = array.getMetrics();
+
+
+        metrics.reset();
+        assertEquals(20, array.get(1));
+
+        assertEquals(1, metrics.getSteps());
+        assertEquals(0, metrics.getMoves());
+        assertEquals(0, metrics.getComparisons());
+
+
+        metrics.reset();
+        assertTrue(array.contains(20));
+
+        assertEquals(2, metrics.getSteps());
+        assertEquals(0, metrics.getMoves());
+        assertEquals(2, metrics.getComparisons());
+
+
+        metrics.reset();
+        array.add(0, 5);
+
+        assertEquals(3, metrics.getSteps());
+        assertEquals(3, metrics.getMoves());
+        assertEquals(0, metrics.getComparisons());
+
+
+        metrics.reset();
+        assertEquals(5, array.remove(0));
+
+        assertEquals(4, metrics.getSteps());
+        assertEquals(3, metrics.getMoves());
+        assertEquals(0, metrics.getComparisons());
+
+
+        for (int i = 0; i < 7; i++) {
+            array.add(i);
+        }
+
+        metrics.reset();
+        array.add(99);
+
+        assertEquals(11, array.size());
+        assertEquals(10, metrics.getSteps());
+        assertEquals(10, metrics.getMoves());
+        assertEquals(0, metrics.getComparisons());
+    }
 }
